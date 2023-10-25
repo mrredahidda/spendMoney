@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">spendSaver</string>
+
+
+    <string-array name="categories">
+        <item>Transport</item>
+        <item>Nourriture</item>
+        <item>Vêtements</item>
+    </string-array>
+</resources>
