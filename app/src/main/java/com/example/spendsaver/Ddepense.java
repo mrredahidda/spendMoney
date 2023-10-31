@@ -1,15 +1,25 @@
 package com.example.spendsaver;
 
+import androidx.annotation.NonNull;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Depense {
+public class Ddepense {
     private float Montant;
     private String Description;
     private Date date;
     public static ArrayList<String> Categories = new ArrayList<>();
+    public static ArrayList<Ddepense> depenses = new ArrayList<>();
 
-    public Depense(float montant, String description, Date date) {
+    @Override
+    public String toString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return "Montant : " +getMontant()+ " | " + " Description : " +getDescription()+ " | " + " Date : " +simpleDateFormat.format(date);
+    }
+
+    public Ddepense(float montant, String description, Date date) {
         Montant = montant;
         Description = description;
         this.date = date;
