@@ -23,33 +23,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20sp">
+        android:orientation="vertical"
+        android:layout_marginTop="40sp">
 
-        <Button
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:text="Modifier"
-            android:id="@+id/btnEdit"
-            android:backgroundTint="#FF9800"/>
         <Button
             android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:text="Supprimer"
             android:id="@+id/btnDel"
-            android:layout_marginLeft="100sp"
+            android:layout_gravity="center"
             android:backgroundTint="#FF0019"/>
+
+        <Button
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F44336"
+            android:text="Retour"
+            android:layout_gravity="center"
+            android:id="@+id/btnBack"/>
 
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#F44336"
-        android:text="Retour"
-        android:layout_gravity="center"
-        android:layout_marginTop="10sp"
-        android:id="@+id/btnBack"/>
 
 </LinearLayout>

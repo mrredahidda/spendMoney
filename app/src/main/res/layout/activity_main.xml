@@ -76,7 +76,6 @@
             android:fontFamily="sans-serif"
             android:textSize="25sp" />
 
-
     </LinearLayout>
 
     <LinearLayout

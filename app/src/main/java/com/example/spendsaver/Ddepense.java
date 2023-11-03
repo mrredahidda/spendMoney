@@ -2,26 +2,28 @@ package com.example.spendsaver;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Ddepense {
+public class Ddepense implements Serializable {
     private float Montant;
     private String Description;
+    private String Categorie;
     private Date date;
-    public static ArrayList<String> Categories = new ArrayList<>();
     public static ArrayList<Ddepense> depenses = new ArrayList<>();
 
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return "Montant : " +getMontant()+ " | " + " Description : " +getDescription()+ " | " + " Date : " +simpleDateFormat.format(date);
+        return "Categorie : " +getCategorie()+ " | " + " Montant : " +getMontant()+ " | " + " Description : " +getDescription()+ " | " + " Date : " +simpleDateFormat.format(date);
     }
 
-    public Ddepense(float montant, String description, Date date) {
+    public Ddepense(String categorie,float montant, String description, Date date) {
         Montant = montant;
         Description = description;
+        Categorie = categorie;
         this.date = date;
     }
 
@@ -41,21 +43,19 @@ public class Ddepense {
         Description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDate() {return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+
     }
 
-    public static ArrayList<String> getCategories() {
-        return Categories;
+    public String getCategorie() {
+        return Categorie;
     }
 
-    public static void setCategories(ArrayList<String> categories) {
-        Categories = categories;
+    public void setCategorie(String categorie) {
+        Categorie = categorie;
     }
-
-
 }

@@ -1,7 +1,13 @@
 package com.example.spendsaver;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +25,7 @@ public class MainActivity2 extends AppCompatActivity {
     Button btnBack, btnDel, btnEdit;
     ListView lv;
     int selectedPosition = -1;
+    private static final String FILE_NAME = "expenses_data.ser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +34,6 @@ public class MainActivity2 extends AppCompatActivity {
 
         btnDel = findViewById(R.id.btnDel);
         btnBack = findViewById(R.id.btnBack);
-        btnEdit = findViewById(R.id.btnEdit);
         lv = findViewById(R.id.listView);
 
         ArrayAdapter<Ddepense> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Ddepense.depenses);
@@ -51,46 +57,30 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (selectedPosition != -1) {
-                    Ddepense.depenses.remove(selectedPosition);
-                    arrayAdapter.notifyDataSetChanged();
-                    selectedPosition = -1;
-                    Toast.makeText(MainActivity2.this, "Item deleted", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this);
+                    builder.setTitle("Confirmation de la suppression")
+                            .setMessage("Êtes-vous sûr de vouloir supprimer cet élément ?")
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Ddepense.depenses.remove(selectedPosition);
+                                    arrayAdapter.notifyDataSetChanged();
+                                    selectedPosition = -1;
+                                    Toast.makeText(MainActivity2.this, "Élément supprimé", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 } else {
-                    Toast.makeText(MainActivity2.this, "No item selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity2.this, "Aucun élément sélectionné.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-    private void saveDataToFile() {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(openFileOutput("Data.txt", MODE_PRIVATE));
-            outputStream.writeObject(Ddepense.depenses);
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadDataFromFile() {
-        try {
-            ObjectInputStream inputStream = new ObjectInputStream(openFileInput("Data.txt"));
-            Ddepense.depenses = (ArrayList<Ddepense>) inputStream.readObject();
-            inputStream.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        saveDataToFile();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        loadDataFromFile();
     }
 }
